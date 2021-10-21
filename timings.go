@@ -6,10 +6,6 @@ import (
 	"time"
 )
 
-var (
-	defaultTracker Tracker
-)
-
 // Tracker is a simple device to track timings
 type Tracker struct {
 	start time.Time
