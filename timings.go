@@ -44,14 +44,14 @@ func Track(name string, start time.Time, l *log.Logger) {
 // e.g. make the first line:
 // defer TrackOut("func_name", time.Now()).
 func TrackOut(name string, start time.Time) {
-	Track(name, start, log.New(os.Stdout, "[TIMING]", log.Lshortfile))
+	Track(name, start, Stdout)
 }
 
 // TrackErr tracks how long a function takes, to Stderr
 // e.g. make the first line:
 // defer Trackerr("func_name", time.Now()).
 func TrackErr(name string, start time.Time) {
-	Track(name, start, log.New(os.Stderr, "[TIMING]", log.Lshortfile))
+	Track(name, start, Stderr)
 }
 
 // TrackIfLate is the same as Track(..), but only prints if the elapsed
@@ -68,3 +68,10 @@ func TrackIfLate(name string, start time.Time, late time.Duration, l *log.Logger
 func Now() time.Time {
 	return time.Now()
 }
+
+var (
+	// Stdout is a log.Logger that outputs formatted messages to os.Stdout, for convenience.
+	Stdout = log.New(os.Stdout, "[TIMING]", log.Lshortfile)
+	// Stderr is a log.Logger that outputs formattedd messages to os.Stderr, for convenience.
+	Stderr = log.New(os.Stderr, "[TIMING]", log.Lshortfile)
+)
