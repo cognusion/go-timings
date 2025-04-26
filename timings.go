@@ -54,6 +54,15 @@ func TrackErr(name string, start time.Time) {
 	Track(name, start, log.New(os.Stderr, "[TIMING]", log.Lshortfile))
 }
 
+// TrackIfLate is the same as Track(..), but only prints if the elapsed
+// time is greater than specified.
+func TrackIfLate(name string, start time.Time, late time.Duration, l *log.Logger) {
+	elapsed := time.Since(start)
+	if elapsed > late {
+		l.Printf("%s took %s", name, elapsed)
+	}
+}
+
 // Now is equivalent to time.Now(), but saves the import of "time" if
 // it's not otherwise needed
 func Now() time.Time {
